@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  web:
+    build: .
+    image: javileyes/apache2-letsencrypt
+    restart: always
+    container_name: nginx-ieseuropa
+    hostname: ieseuropa.es
+    ports:
+      - '80:80'
+      - '443:443'
+    networks:
+      - ieseuropa
+    environment:
+      LETS_ENCRYPT_EMAIL: "javier.gimenez@murciaeduca.es"
+    volumes:
+      - '$PWD/html:/usr/share/nginx/html'
+      - '$PWD/conf.d:/etc/nginx/conf.d/'
+      - '$PWD/certs:/etc/letsencrypt'
+networks:
+  ieseuropa:
+    external: true
+
