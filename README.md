@@ -1,7 +1,7 @@
 # docker-nginx-letsencrypt-and-proxy
 Create a docker-web server with automated letsencrypt certs and proxy configuration.
 
-Por un lado tenemos el script launcher.sh va a ser lanzado cada vez que se ejecute el docker y que contiene comandos para la creación y renovación del certificado via cerbot, por otro lado si nos fijamos en Dockerfile veremos que el docker de **nginx** también tiene configurado un demonio via crontab para renovar certificado diariamente. 
+Por un lado tenemos el script launcher.sh que va a ser lanzado cada vez que se ejecute el docker (***CMD launcher.sh*** dentro de **Dockerfile**) y que contiene comandos para la creación y renovación del certificado via cerbot. Por otro lado si nos fijamos en **Dockerfile** veremos que el docker de **nginx** también tiene configurado un demonio via crontab para renovar certificado diariamente. 
 
 El fichero **docker-compose.yml** contiene como se va a desplegar este docker dentro de la infraestructura: volúmenes, network, etc. Las carpetas **conf.d**, **html** y **certs** son los volúmenes que están emparejados directamente con los archivos de configuración de **nginx**, los archivos de web y los archivos de certificados respectivamente. Por último tenemos el script **deployDockerNginx.sh** que nos va ayudar a desplegar el docker de **nginx** por pasos para ir construyendo el archivo de configuración en 2 pasos para que no de error con el manejo prematuro de certificados aun no concedidos.  
 
